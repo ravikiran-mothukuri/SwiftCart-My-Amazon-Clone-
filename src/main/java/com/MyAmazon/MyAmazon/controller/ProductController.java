@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
-@RequestMapping("/api")
+
 public class ProductController {
 
     private final ProductService service;
@@ -24,13 +24,13 @@ public class ProductController {
     }
 
 
-    @GetMapping("/products")
+    @GetMapping("/api/products")
     public ResponseEntity<List<Product>> getAllProducts() {
         return new ResponseEntity<>(service.getAllProducts(), HttpStatus.OK);
     }
 
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/api/products/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable int id) {
         Product product = service.getProductById(id);
         if (product != null) {
@@ -40,7 +40,7 @@ public class ProductController {
     }
 
 
-    @PostMapping("/addProduct")
+    @PostMapping("/api/addProduct")
     public ResponseEntity<Product> addProduct(@RequestPart Product product, @RequestPart MultipartFile imageFile) {
         try {
             Product savedProduct = service.addProduct(product, imageFile);
@@ -54,7 +54,7 @@ public class ProductController {
 
 
 
-    @GetMapping("/products/{id}/image")
+    @GetMapping("/api/products/{id}/image")
     public ResponseEntity<byte[]> getImageByProductId(@PathVariable int id) {
         Product product = service.getProductById(id);
         if (product != null && product.getImageData() != null) {
